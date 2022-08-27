@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://flowable.org/test">
+  <process id="besteDemo11_OCR_2" name="besteDemo11_OCR_2" isExecutable="true">
+    <documentation>screen ocr scan</documentation>
+    <dataObject id="minBpPriority" name="minBpPriority" itemSubjectRef="xsd:string">
+      <extensionElements>
+        <flowable:value>50</flowable:value>
+      </extensionElements>
+    </dataObject>
+    <dataObject id="humanEffort" name="humanEffort" itemSubjectRef="xsd:string">
+      <extensionElements>
+        <flowable:value>0</flowable:value>
+      </extensionElements>
+    </dataObject>
+    <startEvent id="startEvent1" flowable:formFieldValidation="true"></startEvent>
+    <serviceTask id="sid-5203E636-1B23-4824-8E3F-461A36C93D85" name="Ocr - Screen ocr scan" flowable:async="true" flowable:exclusive="false" flowable:class="com.robusta.robot.ocr.OCRscreenOcrScanTask" flowable:type="CustomOCRscreenOcrScan">
+      <extensionElements>
+        <flowable:field name="x">
+          <flowable:string><![CDATA[287]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="y">
+          <flowable:string><![CDATA[73]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="height">
+          <flowable:string><![CDATA[40]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="width">
+          <flowable:string><![CDATA[190]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="lang">
+          <flowable:string><![CDATA[ENG]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="resultText">
+          <flowable:string><![CDATA[readMonitor]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="sid-882FFC44-886D-4D8D-9266-32B2D83F523F" sourceRef="startEvent1" targetRef="sid-5203E636-1B23-4824-8E3F-461A36C93D85"></sequenceFlow>
+    <endEvent id="sid-EE278175-5C1D-4B9E-81D6-32D8738F531B"></endEvent>
+    <sequenceFlow id="sid-9572F41F-BC49-4875-8221-C62DE34D547F" sourceRef="sid-5203E636-1B23-4824-8E3F-461A36C93D85" targetRef="sid-EE278175-5C1D-4B9E-81D6-32D8738F531B"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_besteDemo11_OCR_2">
+    <bpmndi:BPMNPlane bpmnElement="besteDemo11_OCR_2" id="BPMNPlane_besteDemo11_OCR_2">
+      <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
+        <omgdc:Bounds height="30.0" width="30.0" x="100.0" y="105.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-5203E636-1B23-4824-8E3F-461A36C93D85" id="BPMNShape_sid-5203E636-1B23-4824-8E3F-461A36C93D85">
+        <omgdc:Bounds height="80.0" width="100.0" x="165.0" y="80.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-EE278175-5C1D-4B9E-81D6-32D8738F531B" id="BPMNShape_sid-EE278175-5C1D-4B9E-81D6-32D8738F531B">
+        <omgdc:Bounds height="28.0" width="28.0" x="364.0" y="106.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-9572F41F-BC49-4875-8221-C62DE34D547F" id="BPMNEdge_sid-9572F41F-BC49-4875-8221-C62DE34D547F">
+        <omgdi:waypoint x="264.9499999999978" y="120.0"></omgdi:waypoint>
+        <omgdi:waypoint x="364.0" y="120.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-882FFC44-886D-4D8D-9266-32B2D83F523F" id="BPMNEdge_sid-882FFC44-886D-4D8D-9266-32B2D83F523F">
+        <omgdi:waypoint x="129.94999817301806" y="120.0"></omgdi:waypoint>
+        <omgdi:waypoint x="164.99999999999608" y="120.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

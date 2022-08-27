@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://flowable.org/test">
+  <process id="besteDemo14_processDividing01" name="besteDemo14_processDividing01" isExecutable="true">
+    <dataObject id="minBpPriority" name="minBpPriority" itemSubjectRef="xsd:string">
+      <extensionElements>
+        <flowable:value>50</flowable:value>
+      </extensionElements>
+    </dataObject>
+    <dataObject id="humanEffort" name="humanEffort" itemSubjectRef="xsd:string">
+      <extensionElements>
+        <flowable:value>0</flowable:value>
+      </extensionElements>
+    </dataObject>
+    <startEvent id="startEvent1" flowable:formFieldValidation="true"></startEvent>
+    <serviceTask id="sid-82B27057-23A9-4EA4-8C1E-0A33952AD2BD" name="Excel - Open" flowable:async="true" flowable:exclusive="false" flowable:class="com.robusta.robot.excel.ExcelOpenTask" flowable:type="CustomExcelOpen">
+      <extensionElements>
+        <flowable:field name="fileName">
+          <flowable:string><![CDATA[C:\RobustaTemp\döviz.xlsx]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="resultexcel">
+          <flowable:string><![CDATA[döviz]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="sid-D8C33778-DB57-4B92-87B0-6787CD981753" sourceRef="startEvent1" targetRef="sid-82B27057-23A9-4EA4-8C1E-0A33952AD2BD"></sequenceFlow>
+    <serviceTask id="sid-4BBA9ABB-8917-4097-AAE2-F647146528F6" name="Excel - Read excel to dataset" flowable:async="true" flowable:exclusive="false" flowable:class="com.robusta.robot.excel.ExcelScrapTask" flowable:type="CustomExcelScrap">
+      <extensionElements>
+        <flowable:field name="excelId">
+          <flowable:expression><![CDATA[${döviz}]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="resultresultSetId">
+          <flowable:string><![CDATA[newDöviz]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="hasHeader">
+          <flowable:string><![CDATA[true]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="includeFormattedText">
+          <flowable:string><![CDATA[false]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="sid-9FD05E3A-0AF9-444F-BDF5-812CE8DB0F81" sourceRef="sid-82B27057-23A9-4EA4-8C1E-0A33952AD2BD" targetRef="sid-4BBA9ABB-8917-4097-AAE2-F647146528F6"></sequenceFlow>
+    <callActivity id="sid-BE6E71FE-DAE6-40C7-8C74-00EF42F7851C" flowable:async="true" flowable:exclusive="false" calledElement="besteDemo14_notepad" flowable:calledElementType="key" flowable:inheritVariables="true" flowable:fallbackToDefaultTenant="false"></callActivity>
+    <serviceTask id="sid-544225D0-C5A8-41A6-9960-0F7D15A98269" name="Dataset - Get action" flowable:async="true" flowable:exclusive="false" flowable:class="com.robusta.robot.resultset.ResultSetGetTask" flowable:type="CustomResultSetGet">
+      <extensionElements>
+        <flowable:field name="id">
+          <flowable:expression><![CDATA[${newDöviz}]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="row">
+          <flowable:string><![CDATA[0]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="col">
+          <flowable:string><![CDATA[0]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="resultvariable">
+          <flowable:string><![CDATA[döviz]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="sid-94B766D2-99B0-45D5-9A8E-EBB12CBDE58E" sourceRef="sid-4BBA9ABB-8917-4097-AAE2-F647146528F6" targetRef="sid-544225D0-C5A8-41A6-9960-0F7D15A98269"></sequenceFlow>
+    <sequenceFlow id="sid-54889964-0A63-4AB9-AD50-DA7608722D10" sourceRef="sid-544225D0-C5A8-41A6-9960-0F7D15A98269" targetRef="sid-BE6E71FE-DAE6-40C7-8C74-00EF42F7851C"></sequenceFlow>
+    <endEvent id="sid-F36AB639-227C-4F32-ACBC-052F951D32A0"></endEvent>
+    <sequenceFlow id="sid-3BAA0FA9-38A8-427E-9EAF-B5B2B07E062D" sourceRef="sid-BE6E71FE-DAE6-40C7-8C74-00EF42F7851C" targetRef="sid-F36AB639-227C-4F32-ACBC-052F951D32A0"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_besteDemo14_processDividing01">
+    <bpmndi:BPMNPlane bpmnElement="besteDemo14_processDividing01" id="BPMNPlane_besteDemo14_processDividing01">
+      <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
+        <omgdc:Bounds height="30.0" width="30.0" x="90.0" y="85.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-82B27057-23A9-4EA4-8C1E-0A33952AD2BD" id="BPMNShape_sid-82B27057-23A9-4EA4-8C1E-0A33952AD2BD">
+        <omgdc:Bounds height="80.0" width="100.0" x="165.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-4BBA9ABB-8917-4097-AAE2-F647146528F6" id="BPMNShape_sid-4BBA9ABB-8917-4097-AAE2-F647146528F6">
+        <omgdc:Bounds height="80.0" width="100.0" x="300.0" y="65.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-BE6E71FE-DAE6-40C7-8C74-00EF42F7851C" id="BPMNShape_sid-BE6E71FE-DAE6-40C7-8C74-00EF42F7851C">
+        <omgdc:Bounds height="80.0" width="100.0" x="630.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-544225D0-C5A8-41A6-9960-0F7D15A98269" id="BPMNShape_sid-544225D0-C5A8-41A6-9960-0F7D15A98269">
+        <omgdc:Bounds height="80.0" width="100.0" x="435.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-F36AB639-227C-4F32-ACBC-052F951D32A0" id="BPMNShape_sid-F36AB639-227C-4F32-ACBC-052F951D32A0">
+        <omgdc:Bounds height="28.0" width="28.0" x="666.0" y="195.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-94B766D2-99B0-45D5-9A8E-EBB12CBDE58E" id="BPMNEdge_sid-94B766D2-99B0-45D5-9A8E-EBB12CBDE58E">
+        <omgdi:waypoint x="399.95000000000005" y="102.61904761904762"></omgdi:waypoint>
+        <omgdi:waypoint x="434.9999999999998" y="100.94999999999999"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-3BAA0FA9-38A8-427E-9EAF-B5B2B07E062D" id="BPMNEdge_sid-3BAA0FA9-38A8-427E-9EAF-B5B2B07E062D">
+        <omgdi:waypoint x="680.0" y="139.95"></omgdi:waypoint>
+        <omgdi:waypoint x="680.0" y="195.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-D8C33778-DB57-4B92-87B0-6787CD981753" id="BPMNEdge_sid-D8C33778-DB57-4B92-87B0-6787CD981753">
+        <omgdi:waypoint x="119.94999848995758" y="100.0"></omgdi:waypoint>
+        <omgdi:waypoint x="165.0" y="100.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-9FD05E3A-0AF9-444F-BDF5-812CE8DB0F81" id="BPMNEdge_sid-9FD05E3A-0AF9-444F-BDF5-812CE8DB0F81">
+        <omgdi:waypoint x="264.95000000000005" y="101.85000000000001"></omgdi:waypoint>
+        <omgdi:waypoint x="300.0" y="103.14814814814815"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-54889964-0A63-4AB9-AD50-DA7608722D10" id="BPMNEdge_sid-54889964-0A63-4AB9-AD50-DA7608722D10">
+        <omgdi:waypoint x="534.95" y="100.0"></omgdi:waypoint>
+        <omgdi:waypoint x="630.0" y="100.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

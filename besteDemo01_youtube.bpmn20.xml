@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://flowable.org/test">
+  <process id="besteDemo01_youtube" name="besteDemo01_youtube" isExecutable="true">
+    <documentation>initial</documentation>
+    <dataObject id="minBpPriority" name="minBpPriority" itemSubjectRef="xsd:string">
+      <extensionElements>
+        <flowable:value>50</flowable:value>
+      </extensionElements>
+    </dataObject>
+    <dataObject id="humanEffort" name="humanEffort" itemSubjectRef="xsd:string">
+      <extensionElements>
+        <flowable:value>0</flowable:value>
+      </extensionElements>
+    </dataObject>
+    <startEvent id="startEvent1" flowable:formFieldValidation="true"></startEvent>
+    <serviceTask id="sid-2FD5886C-0381-4FB9-942D-64500F981AEE" name="Applications - Open - Open Youtube Home Page" flowable:async="true" flowable:exclusive="false" flowable:class="com.robusta.robot.web.WebOpenTask" flowable:type="CustomWebOpen">
+      <extensionElements>
+        <flowable:field name="resultbrowser">
+          <flowable:string><![CDATA[youtube]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="type">
+          <flowable:string><![CDATA[CHROME]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="url">
+          <flowable:string><![CDATA[https://www.youtube.com]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="pageload">
+          <flowable:string><![CDATA[true]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="maximize">
+          <flowable:string><![CDATA[true]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="sid-B1C779E7-3421-42F6-82D6-4DA37F7AD2BE" sourceRef="startEvent1" targetRef="sid-2FD5886C-0381-4FB9-942D-64500F981AEE"></sequenceFlow>
+    <intermediateCatchEvent id="sid-B8B71423-9AFC-43AD-8DF5-EB10E46E7C2B">
+      <timerEventDefinition>
+        <timeDuration>PT5S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="sid-4580776C-EF1A-44B6-B679-9459F82D6556" sourceRef="sid-2FD5886C-0381-4FB9-942D-64500F981AEE" targetRef="sid-B8B71423-9AFC-43AD-8DF5-EB10E46E7C2B"></sequenceFlow>
+    <serviceTask id="sid-5547DC46-141B-4DC7-970F-EADEAE5DCFC1" name="Applications - Close" flowable:async="true" flowable:exclusive="false" flowable:class="com.robusta.robot.web.WebCloseTask" flowable:type="CustomWebClose">
+      <extensionElements>
+        <flowable:field name="browserId">
+          <flowable:expression><![CDATA[${youtube}]]></flowable:expression>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="sid-48B3435E-35F3-4F2A-9198-DE7EE750EA73" sourceRef="sid-B8B71423-9AFC-43AD-8DF5-EB10E46E7C2B" targetRef="sid-5547DC46-141B-4DC7-970F-EADEAE5DCFC1"></sequenceFlow>
+    <endEvent id="sid-8C68998C-9810-4809-99EC-D6ADD1700DA8"></endEvent>
+    <sequenceFlow id="sid-E0A121B0-6B35-4E71-AE9F-AE31B7098451" sourceRef="sid-5547DC46-141B-4DC7-970F-EADEAE5DCFC1" targetRef="sid-8C68998C-9810-4809-99EC-D6ADD1700DA8"></sequenceFlow>
+    <textAnnotation id="sid-29618DBA-7B2C-44DE-8A68-2310C52AAEE5">
+      <text>This makes open youtube
+</text>
+    </textAnnotation>
+    <association id="sid-FB6274C4-7AA3-4FB0-9560-47B09AEDF2B5" sourceRef="sid-2FD5886C-0381-4FB9-942D-64500F981AEE" targetRef="sid-29618DBA-7B2C-44DE-8A68-2310C52AAEE5" associationDirection="None"></association>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_besteDemo01_youtube">
+    <bpmndi:BPMNPlane bpmnElement="besteDemo01_youtube" id="BPMNPlane_besteDemo01_youtube">
+      <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
+        <omgdc:Bounds height="30.0" width="30.0" x="100.0" y="51.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-2FD5886C-0381-4FB9-942D-64500F981AEE" id="BPMNShape_sid-2FD5886C-0381-4FB9-942D-64500F981AEE">
+        <omgdc:Bounds height="80.0" width="100.0" x="255.0" y="0.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-B8B71423-9AFC-43AD-8DF5-EB10E46E7C2B" id="BPMNShape_sid-B8B71423-9AFC-43AD-8DF5-EB10E46E7C2B">
+        <omgdc:Bounds height="31.0" width="31.0" x="390.0" y="45.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-5547DC46-141B-4DC7-970F-EADEAE5DCFC1" id="BPMNShape_sid-5547DC46-141B-4DC7-970F-EADEAE5DCFC1">
+        <omgdc:Bounds height="80.0" width="100.0" x="487.0" y="25.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-8C68998C-9810-4809-99EC-D6ADD1700DA8" id="BPMNShape_sid-8C68998C-9810-4809-99EC-D6ADD1700DA8">
+        <omgdc:Bounds height="28.0" width="28.0" x="632.0" y="51.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-29618DBA-7B2C-44DE-8A68-2310C52AAEE5" id="BPMNShape_sid-29618DBA-7B2C-44DE-8A68-2310C52AAEE5">
+        <omgdc:Bounds height="50.0" width="100.0" x="157.0" y="101.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-FB6274C4-7AA3-4FB0-9560-47B09AEDF2B5" id="BPMNShape_sid-FB6274C4-7AA3-4FB0-9560-47B09AEDF2B5">
+        <omgdc:Bounds height="45.483231171962785" width="78.65923508562975" x="176.09225745718513" y="69.05525941401861"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-4580776C-EF1A-44B6-B679-9459F82D6556" id="BPMNEdge_sid-4580776C-EF1A-44B6-B679-9459F82D6556">
+        <omgdi:waypoint x="354.95000000000005" y="50.38564356435644"></omgdi:waypoint>
+        <omgdi:waypoint x="390.3252881113022" y="57.742273585269054"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-FB6274C4-7AA3-4FB0-9560-47B09AEDF2B5" id="BPMNEdge_sid-FB6274C4-7AA3-4FB0-9560-47B09AEDF2B5">
+        <omgdi:waypoint x="255.0" y="68.88265306122449"></omgdi:waypoint>
+        <omgdi:waypoint x="199.4194117647059" y="101.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-B1C779E7-3421-42F6-82D6-4DA37F7AD2BE" id="BPMNEdge_sid-B1C779E7-3421-42F6-82D6-4DA37F7AD2BE">
+        <omgdi:waypoint x="129.94999695909908" y="66.0"></omgdi:waypoint>
+        <omgdi:waypoint x="192.5" y="66.0"></omgdi:waypoint>
+        <omgdi:waypoint x="192.5" y="40.0"></omgdi:waypoint>
+        <omgdi:waypoint x="254.99999999999156" y="40.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-E0A121B0-6B35-4E71-AE9F-AE31B7098451" id="BPMNEdge_sid-E0A121B0-6B35-4E71-AE9F-AE31B7098451">
+        <omgdi:waypoint x="586.9499999999791" y="65.0"></omgdi:waypoint>
+        <omgdi:waypoint x="632.0" y="65.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-48B3435E-35F3-4F2A-9198-DE7EE750EA73" id="BPMNEdge_sid-48B3435E-35F3-4F2A-9198-DE7EE750EA73">
+        <omgdi:waypoint x="421.94253534974115" y="61.48680045859779"></omgdi:waypoint>
+        <omgdi:waypoint x="486.99999999999983" y="63.473282442748086"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

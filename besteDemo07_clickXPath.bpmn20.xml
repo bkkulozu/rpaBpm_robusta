@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://flowable.org/test">
+  <process id="besteDemo07_clickXPath" name="besteDemo07_clickXPath" isExecutable="true">
+    <dataObject id="minBpPriority" name="minBpPriority" itemSubjectRef="xsd:string">
+      <extensionElements>
+        <flowable:value>50</flowable:value>
+      </extensionElements>
+    </dataObject>
+    <dataObject id="humanEffort" name="humanEffort" itemSubjectRef="xsd:string">
+      <extensionElements>
+        <flowable:value>0</flowable:value>
+      </extensionElements>
+    </dataObject>
+    <startEvent id="startEvent1" flowable:formFieldValidation="true"></startEvent>
+    <serviceTask id="sid-4A18D638-8F5A-4406-AEC0-D93A52F69595" name="Applications - Open - Find Click" flowable:async="true" flowable:exclusive="false" flowable:class="com.robusta.robot.web.WebOpenTask" flowable:type="CustomWebOpen">
+      <extensionElements>
+        <flowable:field name="resultbrowser">
+          <flowable:string><![CDATA[click]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="type">
+          <flowable:string><![CDATA[CHROME]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="url">
+          <flowable:string><![CDATA[https://www.tcmb.gov.tr/]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="pageload">
+          <flowable:string><![CDATA[true]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="maximize">
+          <flowable:string><![CDATA[true]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="sid-E9D9C689-342F-49C9-9CF4-5933C317A160" sourceRef="startEvent1" targetRef="sid-4A18D638-8F5A-4406-AEC0-D93A52F69595"></sequenceFlow>
+    <serviceTask id="sid-236DE0E5-4408-4D60-A81A-EC378DFBE289" name="Applications - Get methods" flowable:async="true" flowable:exclusive="false" flowable:class="com.robusta.robot.web.WebGetTask" flowable:type="CustomWebGet">
+      <extensionElements>
+        <flowable:field name="browserId">
+          <flowable:expression><![CDATA[${click}]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="field">
+          <flowable:string><![CDATA[//a[@class="search-button-tcmb w-inline-block"]]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="action">
+          <flowable:string><![CDATA[text]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <intermediateCatchEvent id="sid-A2A9319B-92AE-4D10-BA77-76AF12ADFAFB">
+      <timerEventDefinition>
+        <timeDuration>PT6S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <serviceTask id="sid-9128D513-7FF7-4EC8-8E07-44D1232446DA" name="Applications - Close" flowable:async="true" flowable:exclusive="false" flowable:class="com.robusta.robot.web.WebCloseTask" flowable:type="CustomWebClose">
+      <extensionElements>
+        <flowable:field name="browserId">
+          <flowable:expression><![CDATA[${click}]]></flowable:expression>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="sid-6121B8B4-34A3-430C-A6D5-90BE5607AA1D" sourceRef="sid-A2A9319B-92AE-4D10-BA77-76AF12ADFAFB" targetRef="sid-9128D513-7FF7-4EC8-8E07-44D1232446DA"></sequenceFlow>
+    <sequenceFlow id="sid-6CB087FE-1D34-4C27-8F9F-B4066E2F7F07" sourceRef="sid-4A18D638-8F5A-4406-AEC0-D93A52F69595" targetRef="sid-236DE0E5-4408-4D60-A81A-EC378DFBE289"></sequenceFlow>
+    <serviceTask id="sid-90AF806D-8CC6-4A0D-B358-816A73062B7D" name="Applications - Alert actions - Click button showed" flowable:async="true" flowable:exclusive="false" flowable:class="com.robusta.robot.web.WebAlertTask" flowable:type="CustomWebAlert">
+      <extensionElements>
+        <flowable:field name="browserId">
+          <flowable:expression><![CDATA[${click}]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="action">
+          <flowable:string><![CDATA[accept]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="sid-346411B5-553B-46AD-9739-EABC1867A4FB" sourceRef="sid-236DE0E5-4408-4D60-A81A-EC378DFBE289" targetRef="sid-90AF806D-8CC6-4A0D-B358-816A73062B7D"></sequenceFlow>
+    <sequenceFlow id="sid-62CED24A-8C02-48CC-90AA-3D143FCFF57B" sourceRef="sid-90AF806D-8CC6-4A0D-B358-816A73062B7D" targetRef="sid-A2A9319B-92AE-4D10-BA77-76AF12ADFAFB"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_besteDemo07_clickXPath">
+    <bpmndi:BPMNPlane bpmnElement="besteDemo07_clickXPath" id="BPMNPlane_besteDemo07_clickXPath">
+      <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
+        <omgdc:Bounds height="30.0" width="30.0" x="135.0" y="94.75"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-4A18D638-8F5A-4406-AEC0-D93A52F69595" id="BPMNShape_sid-4A18D638-8F5A-4406-AEC0-D93A52F69595">
+        <omgdc:Bounds height="80.0" width="100.0" x="195.0" y="69.75"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-236DE0E5-4408-4D60-A81A-EC378DFBE289" id="BPMNShape_sid-236DE0E5-4408-4D60-A81A-EC378DFBE289">
+        <omgdc:Bounds height="80.0" width="100.0" x="405.0" y="69.75"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-A2A9319B-92AE-4D10-BA77-76AF12ADFAFB" id="BPMNShape_sid-A2A9319B-92AE-4D10-BA77-76AF12ADFAFB">
+        <omgdc:Bounds height="31.0" width="31.0" x="585.0" y="91.25"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-9128D513-7FF7-4EC8-8E07-44D1232446DA" id="BPMNShape_sid-9128D513-7FF7-4EC8-8E07-44D1232446DA">
+        <omgdc:Bounds height="80.0" width="100.0" x="703.5" y="69.75"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-90AF806D-8CC6-4A0D-B358-816A73062B7D" id="BPMNShape_sid-90AF806D-8CC6-4A0D-B358-816A73062B7D">
+        <omgdc:Bounds height="80.0" width="100.0" x="539.0" y="146.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-62CED24A-8C02-48CC-90AA-3D143FCFF57B" id="BPMNEdge_sid-62CED24A-8C02-48CC-90AA-3D143FCFF57B">
+        <omgdi:waypoint x="594.7971608832808" y="146.0"></omgdi:waypoint>
+        <omgdi:waypoint x="598.2738140505727" y="122.04183676750637"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-E9D9C689-342F-49C9-9CF4-5933C317A160" id="BPMNEdge_sid-E9D9C689-342F-49C9-9CF4-5933C317A160">
+        <omgdi:waypoint x="164.94999797575198" y="109.75"></omgdi:waypoint>
+        <omgdi:waypoint x="194.99999999997857" y="109.75"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-346411B5-553B-46AD-9739-EABC1867A4FB" id="BPMNEdge_sid-346411B5-553B-46AD-9739-EABC1867A4FB">
+        <omgdi:waypoint x="504.95000000000005" y="138.17304104477614"></omgdi:waypoint>
+        <omgdi:waypoint x="539.0" y="157.54850746268656"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-6121B8B4-34A3-430C-A6D5-90BE5607AA1D" id="BPMNEdge_sid-6121B8B4-34A3-430C-A6D5-90BE5607AA1D">
+        <omgdi:waypoint x="616.9478172116981" y="107.51144103492038"></omgdi:waypoint>
+        <omgdi:waypoint x="703.4999999999994" y="108.93032786885246"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-6CB087FE-1D34-4C27-8F9F-B4066E2F7F07" id="BPMNEdge_sid-6CB087FE-1D34-4C27-8F9F-B4066E2F7F07">
+        <omgdi:waypoint x="294.95000000000005" y="109.75"></omgdi:waypoint>
+        <omgdi:waypoint x="405.0" y="109.75"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

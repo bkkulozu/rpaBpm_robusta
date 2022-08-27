@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://flowable.org/test">
+  <process id="besteDemo10_mail" name="besteDemo10_mail" isExecutable="true">
+    <dataObject id="minBpPriority" name="minBpPriority" itemSubjectRef="xsd:string">
+      <extensionElements>
+        <flowable:value>50</flowable:value>
+      </extensionElements>
+    </dataObject>
+    <dataObject id="humanEffort" name="humanEffort" itemSubjectRef="xsd:string">
+      <extensionElements>
+        <flowable:value>0</flowable:value>
+      </extensionElements>
+    </dataObject>
+    <startEvent id="startEvent1" flowable:formFieldValidation="true"></startEvent>
+    <serviceTask id="sid-149193C5-5BE0-4FE0-ACFF-21C741C6498A" name="Mail - Imap/Smtp connection" flowable:async="true" flowable:exclusive="false" flowable:class="com.robusta.robot.mail.MailImapSmtpConnectTask" flowable:type="CustomMailImapSmtpConnect">
+      <extensionElements>
+        <flowable:field name="resultConnectionId">
+          <flowable:string><![CDATA[mailConnectTest]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="imapHost">
+          <flowable:string><![CDATA[cloudrpatraining.com]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="imapPort">
+          <flowable:string><![CDATA[993]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="imapUser">
+          <flowable:string><![CDATA[demo26@cloudrpatraining.com]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="imapPass">
+          <flowable:string><![CDATA[egitimDemo2022*]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="imapSsl">
+          <flowable:string><![CDATA[true]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="imapTlsEnabled">
+          <flowable:string><![CDATA[false]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="imapTlsRequired">
+          <flowable:string><![CDATA[false]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="smtpHost">
+          <flowable:string><![CDATA[cloudrpatraining.com]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="smtpPort">
+          <flowable:string><![CDATA[465]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="smtpUser">
+          <flowable:string><![CDATA[demo26@cloudrpatraining.com]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="smtpPass">
+          <flowable:string><![CDATA[egitimDemo2022*]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="smtpSsl">
+          <flowable:string><![CDATA[true]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="smtpTlsEnabled">
+          <flowable:string><![CDATA[false]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="smtpTlsRequired">
+          <flowable:string><![CDATA[true]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="sid-1B486E0B-B5B4-4972-BD5E-042AD9A0B727" sourceRef="startEvent1" targetRef="sid-149193C5-5BE0-4FE0-ACFF-21C741C6498A"></sequenceFlow>
+    <serviceTask id="sid-34F1D6FA-097C-4A7F-A571-633443FE1866" name="Mail - Search" flowable:async="true" flowable:exclusive="false" flowable:class="com.robusta.robot.mail.MailSearchTask" flowable:type="CustomMailSearch">
+      <extensionElements>
+        <flowable:field name="connectionId">
+          <flowable:expression><![CDATA[${mailConnectTest}]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="folder">
+          <flowable:string><![CDATA[INBOX]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="hasAttachment">
+          <flowable:string><![CDATA[false]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="limit">
+          <flowable:string><![CDATA[10]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="caseSensitive">
+          <flowable:string><![CDATA[false]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="resultresultSetId">
+          <flowable:string><![CDATA[searchDS]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="sid-4BA07714-FEFF-4496-BE42-E0053E124FD0" name="Dataset - Save as" flowable:async="true" flowable:exclusive="false" flowable:class="com.robusta.robot.file.FileWriteTask" flowable:type="CustomFileWrite">
+      <extensionElements>
+        <flowable:field name="resultSetId">
+          <flowable:expression><![CDATA[${searchDS}]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="fileName">
+          <flowable:string><![CDATA[C:\RobustaTemp\mail.xlsx]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="type">
+          <flowable:string><![CDATA[EXCEL]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="delimeter">
+          <flowable:string><![CDATA[,]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="sid-72C3ABCA-3DC4-4C70-8AB4-1A46F84A77D1" sourceRef="sid-34F1D6FA-097C-4A7F-A571-633443FE1866" targetRef="sid-4BA07714-FEFF-4496-BE42-E0053E124FD0"></sequenceFlow>
+    <endEvent id="sid-329E66B5-CD8A-4945-B29D-02D477364538"></endEvent>
+    <sequenceFlow id="sid-D7277413-FFA0-43F8-AAF4-BEE7CEC3539E" sourceRef="sid-4BA07714-FEFF-4496-BE42-E0053E124FD0" targetRef="sid-329E66B5-CD8A-4945-B29D-02D477364538"></sequenceFlow>
+    <sequenceFlow id="sid-3D851873-250B-4251-8469-78FB21FC0F00" sourceRef="sid-149193C5-5BE0-4FE0-ACFF-21C741C6498A" targetRef="sid-34F1D6FA-097C-4A7F-A571-633443FE1866"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_besteDemo10_mail">
+    <bpmndi:BPMNPlane bpmnElement="besteDemo10_mail" id="BPMNPlane_besteDemo10_mail">
+      <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
+        <omgdc:Bounds height="30.0" width="30.0" x="135.0" y="75.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-149193C5-5BE0-4FE0-ACFF-21C741C6498A" id="BPMNShape_sid-149193C5-5BE0-4FE0-ACFF-21C741C6498A">
+        <omgdc:Bounds height="80.0" width="100.0" x="210.0" y="30.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-34F1D6FA-097C-4A7F-A571-633443FE1866" id="BPMNShape_sid-34F1D6FA-097C-4A7F-A571-633443FE1866">
+        <omgdc:Bounds height="80.0" width="100.0" x="390.0" y="0.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-4BA07714-FEFF-4496-BE42-E0053E124FD0" id="BPMNShape_sid-4BA07714-FEFF-4496-BE42-E0053E124FD0">
+        <omgdc:Bounds height="80.0" width="100.0" x="560.0" y="42.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-329E66B5-CD8A-4945-B29D-02D477364538" id="BPMNShape_sid-329E66B5-CD8A-4945-B29D-02D477364538">
+        <omgdc:Bounds height="28.0" width="28.0" x="697.0" y="165.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-1B486E0B-B5B4-4972-BD5E-042AD9A0B727" id="BPMNEdge_sid-1B486E0B-B5B4-4972-BD5E-042AD9A0B727">
+        <omgdi:waypoint x="164.71139533260362" y="87.316255021697"></omgdi:waypoint>
+        <omgdi:waypoint x="209.99999999999994" y="79.08181818181818"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-72C3ABCA-3DC4-4C70-8AB4-1A46F84A77D1" id="BPMNEdge_sid-72C3ABCA-3DC4-4C70-8AB4-1A46F84A77D1">
+        <omgdi:waypoint x="489.95000000000005" y="52.34058823529413"></omgdi:waypoint>
+        <omgdi:waypoint x="560.0" y="69.6470588235294"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-D7277413-FFA0-43F8-AAF4-BEE7CEC3539E" id="BPMNEdge_sid-D7277413-FFA0-43F8-AAF4-BEE7CEC3539E">
+        <omgdi:waypoint x="651.5965739309634" y="121.95"></omgdi:waypoint>
+        <omgdi:waypoint x="700.9016724029259" y="169.3024619085586"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-3D851873-250B-4251-8469-78FB21FC0F00" id="BPMNEdge_sid-3D851873-250B-4251-8469-78FB21FC0F00">
+        <omgdi:waypoint x="309.95000000000005" y="61.666666666666664"></omgdi:waypoint>
+        <omgdi:waypoint x="390.0" y="48.32499999999999"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

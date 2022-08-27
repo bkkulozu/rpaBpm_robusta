@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://flowable.org/test">
+  <process id="besteDemo14_notepad" name="besteDemo14_notepad" isExecutable="true">
+    <dataObject id="minBpPriority" name="minBpPriority" itemSubjectRef="xsd:string">
+      <extensionElements>
+        <flowable:value>50</flowable:value>
+      </extensionElements>
+    </dataObject>
+    <dataObject id="humanEffort" name="humanEffort" itemSubjectRef="xsd:string">
+      <extensionElements>
+        <flowable:value>0</flowable:value>
+      </extensionElements>
+    </dataObject>
+    <startEvent id="startEvent1" flowable:formFieldValidation="true"></startEvent>
+    <serviceTask id="sid-BC6E1750-8FE3-4252-8D16-5551EF443D81" name="System - Run cmd" flowable:async="true" flowable:exclusive="false" flowable:class="com.robusta.robot.cmd.CmdRunCmdTask" flowable:type="CustomCmdRunCmd">
+      <extensionElements>
+        <flowable:field name="exeName">
+          <flowable:string><![CDATA[notepad.exe]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="workingDirectory">
+          <flowable:string><![CDATA[C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="sid-1D9180C4-8D3D-4AA6-8181-936811EEFF27" sourceRef="startEvent1" targetRef="sid-BC6E1750-8FE3-4252-8D16-5551EF443D81"></sequenceFlow>
+    <serviceTask id="sid-B984750B-4C43-4A9F-98F4-BC8ED13C31BC" name="Applications - Open" flowable:async="true" flowable:exclusive="false" flowable:class="com.robusta.robot.web.WebOpenTask" flowable:type="CustomWebOpen">
+      <extensionElements>
+        <flowable:field name="resultbrowser">
+          <flowable:string><![CDATA[openNotepad]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="type">
+          <flowable:string><![CDATA[WINDOWS]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="url">
+          <flowable:string><![CDATA[Adsız - Not Defteri]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="pageload">
+          <flowable:string><![CDATA[true]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="maximize">
+          <flowable:string><![CDATA[true]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="sid-5AAEAF19-7EF7-4BE5-AD9A-5BDDB2C3D473" sourceRef="sid-BC6E1750-8FE3-4252-8D16-5551EF443D81" targetRef="sid-B984750B-4C43-4A9F-98F4-BC8ED13C31BC"></sequenceFlow>
+    <serviceTask id="sid-702758F0-5033-4B71-BEE6-C60FFE1C408E" name="Applications - Set methods" flowable:async="true" flowable:exclusive="false" flowable:class="com.robusta.robot.web.WebSetTask" flowable:type="CustomWebSet">
+      <extensionElements>
+        <flowable:field name="browserId">
+          <flowable:expression><![CDATA[${openNotepad}]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="field">
+          <flowable:string><![CDATA[//Document[@Name="Metin Düzenleyici"]]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="clear">
+          <flowable:string><![CDATA[false]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="action">
+          <flowable:string><![CDATA[text]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="text">
+          <flowable:expression><![CDATA[Welcome to the RPA World! ${döviz}]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="visible">
+          <flowable:string><![CDATA[true]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="sid-9AB2AE32-9042-4CBB-9BD0-BD5F306F023E" sourceRef="sid-B984750B-4C43-4A9F-98F4-BC8ED13C31BC" targetRef="sid-702758F0-5033-4B71-BEE6-C60FFE1C408E"></sequenceFlow>
+    <serviceTask id="sid-0D74D98D-3626-406A-BB81-1D4195E2D3A1" name="Applications - Open" flowable:async="true" flowable:exclusive="false" flowable:class="com.robusta.robot.web.WebOpenTask" flowable:type="CustomWebOpen">
+      <extensionElements>
+        <flowable:field name="resultbrowser">
+          <flowable:string><![CDATA[clickDontSave]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="type">
+          <flowable:string><![CDATA[WINDOWS]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="url">
+          <flowable:string><![CDATA[Not Defteri]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="pageload">
+          <flowable:string><![CDATA[true]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="maximize">
+          <flowable:string><![CDATA[false]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="sid-47AFBB5E-F9AB-4C8C-B3D5-D559C276B752" name="Applications - Mouse actions" flowable:async="true" flowable:exclusive="false" flowable:class="com.robusta.robot.web.WebMouseTask" flowable:type="CustomWebMouse">
+      <extensionElements>
+        <flowable:field name="browserId">
+          <flowable:expression><![CDATA[${clickDontSave}]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="button">
+          <flowable:string><![CDATA[LEFT]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="field">
+          <flowable:string><![CDATA[//Button[@Name="Kaydetme"]]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="dbl">
+          <flowable:string><![CDATA[false]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="pageload">
+          <flowable:string><![CDATA[true]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="visible">
+          <flowable:string><![CDATA[true]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="hover">
+          <flowable:string><![CDATA[false]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="sid-7DA3D109-198D-48C2-AD48-D75A83DECE5A" sourceRef="sid-0D74D98D-3626-406A-BB81-1D4195E2D3A1" targetRef="sid-47AFBB5E-F9AB-4C8C-B3D5-D559C276B752"></sequenceFlow>
+    <endEvent id="sid-0C32F0B5-67A8-41E1-92D6-40B1C533EC84"></endEvent>
+    <sequenceFlow id="sid-D144AD80-216D-427E-8FDC-18C6926678C0" sourceRef="sid-47AFBB5E-F9AB-4C8C-B3D5-D559C276B752" targetRef="sid-0C32F0B5-67A8-41E1-92D6-40B1C533EC84"></sequenceFlow>
+    <serviceTask id="sid-583803B5-CC85-437D-802E-EA96F51FAB16" name="Applications - Close" flowable:async="true" flowable:exclusive="false" flowable:class="com.robusta.robot.web.WebCloseTask" flowable:type="CustomWebClose">
+      <extensionElements>
+        <flowable:field name="browserId">
+          <flowable:expression><![CDATA[${openNotepad}]]></flowable:expression>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="sid-76281103-2317-4EB4-B0A8-07DD2B937CC2" sourceRef="sid-702758F0-5033-4B71-BEE6-C60FFE1C408E" targetRef="sid-583803B5-CC85-437D-802E-EA96F51FAB16"></sequenceFlow>
+    <sequenceFlow id="sid-476A8877-5AB2-4084-9BDC-0200A3EF4C78" sourceRef="sid-583803B5-CC85-437D-802E-EA96F51FAB16" targetRef="sid-0D74D98D-3626-406A-BB81-1D4195E2D3A1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_besteDemo14_notepad">
+    <bpmndi:BPMNPlane bpmnElement="besteDemo14_notepad" id="BPMNPlane_besteDemo14_notepad">
+      <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
+        <omgdc:Bounds height="30.0" width="30.0" x="90.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-BC6E1750-8FE3-4252-8D16-5551EF443D81" id="BPMNShape_sid-BC6E1750-8FE3-4252-8D16-5551EF443D81">
+        <omgdc:Bounds height="80.0" width="100.0" x="165.0" y="75.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-B984750B-4C43-4A9F-98F4-BC8ED13C31BC" id="BPMNShape_sid-B984750B-4C43-4A9F-98F4-BC8ED13C31BC">
+        <omgdc:Bounds height="80.0" width="100.0" x="300.0" y="75.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-702758F0-5033-4B71-BEE6-C60FFE1C408E" id="BPMNShape_sid-702758F0-5033-4B71-BEE6-C60FFE1C408E">
+        <omgdc:Bounds height="80.0" width="100.0" x="435.0" y="75.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-0D74D98D-3626-406A-BB81-1D4195E2D3A1" id="BPMNShape_sid-0D74D98D-3626-406A-BB81-1D4195E2D3A1">
+        <omgdc:Bounds height="80.0" width="100.0" x="690.0" y="75.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-47AFBB5E-F9AB-4C8C-B3D5-D559C276B752" id="BPMNShape_sid-47AFBB5E-F9AB-4C8C-B3D5-D559C276B752">
+        <omgdc:Bounds height="80.0" width="100.0" x="825.0" y="75.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-0C32F0B5-67A8-41E1-92D6-40B1C533EC84" id="BPMNShape_sid-0C32F0B5-67A8-41E1-92D6-40B1C533EC84">
+        <omgdc:Bounds height="28.0" width="28.0" x="861.0" y="196.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-583803B5-CC85-437D-802E-EA96F51FAB16" id="BPMNShape_sid-583803B5-CC85-437D-802E-EA96F51FAB16">
+        <omgdc:Bounds height="80.0" width="100.0" x="555.0" y="75.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-D144AD80-216D-427E-8FDC-18C6926678C0" id="BPMNEdge_sid-D144AD80-216D-427E-8FDC-18C6926678C0">
+        <omgdi:waypoint x="875.0" y="154.95"></omgdi:waypoint>
+        <omgdi:waypoint x="875.0" y="196.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-76281103-2317-4EB4-B0A8-07DD2B937CC2" id="BPMNEdge_sid-76281103-2317-4EB4-B0A8-07DD2B937CC2">
+        <omgdi:waypoint x="534.9499999999898" y="115.0"></omgdi:waypoint>
+        <omgdi:waypoint x="554.9999999999977" y="115.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-9AB2AE32-9042-4CBB-9BD0-BD5F306F023E" id="BPMNEdge_sid-9AB2AE32-9042-4CBB-9BD0-BD5F306F023E">
+        <omgdi:waypoint x="399.95000000000005" y="115.0"></omgdi:waypoint>
+        <omgdi:waypoint x="435.0" y="115.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-5AAEAF19-7EF7-4BE5-AD9A-5BDDB2C3D473" id="BPMNEdge_sid-5AAEAF19-7EF7-4BE5-AD9A-5BDDB2C3D473">
+        <omgdi:waypoint x="264.95000000000005" y="115.0"></omgdi:waypoint>
+        <omgdi:waypoint x="300.0" y="115.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-476A8877-5AB2-4084-9BDC-0200A3EF4C78" id="BPMNEdge_sid-476A8877-5AB2-4084-9BDC-0200A3EF4C78">
+        <omgdi:waypoint x="654.9499999999999" y="115.0"></omgdi:waypoint>
+        <omgdi:waypoint x="689.9999999999961" y="115.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-1D9180C4-8D3D-4AA6-8181-936811EEFF27" id="BPMNEdge_sid-1D9180C4-8D3D-4AA6-8181-936811EEFF27">
+        <omgdi:waypoint x="119.94999848995758" y="115.0"></omgdi:waypoint>
+        <omgdi:waypoint x="165.0" y="115.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-7DA3D109-198D-48C2-AD48-D75A83DECE5A" id="BPMNEdge_sid-7DA3D109-198D-48C2-AD48-D75A83DECE5A">
+        <omgdi:waypoint x="789.9499999999999" y="115.0"></omgdi:waypoint>
+        <omgdi:waypoint x="824.9999999999961" y="115.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
